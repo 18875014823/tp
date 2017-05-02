@@ -1,0 +1,24 @@
+[ 2017-04-27T10:35:01+08:00 ] ::1 /tp/index.php/User/User/testView
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.005000s ]
+ERR: 无法加载模块:User
+
+[ 2017-04-27T11:25:37+08:00 ] ::1 /tp/index.php/User/User/testView
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+ERR: 无法加载模块:User
+
+[ 2017-04-27T11:26:51+08:00 ] ::1 /tp/index.php/User/Home/User/testView
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.003001s ]
+ERR: 无法加载模块:User
+
+[ 2017-04-27T15:32:08+08:00 ] ::1 /tp/index.php/login.php
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.005001s ]
+ERR: 无法加载模块:Login
+

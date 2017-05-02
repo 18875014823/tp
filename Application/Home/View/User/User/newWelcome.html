@@ -1,0 +1,90 @@
+<?php 
+    define("URLROOT", "http://localhost:8080/tp");
+    session_start();
+?>
+<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" href="<?php echo URLROOT?>/Application/Common/easyui/themes/default/easyui.css" type="text/css"/>
+		<link rel="stylesheet" href="<?php echo URLROOT?>/Application/Common/easyui/themes/icon.css" type="text/css"/>
+		<script type="text/javascript" src="<?php echo URLROOT?>/Application/Common/jQuery/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="<?php echo URLROOT?>/Application/Common/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="<?php echo URLROOT?>/Application/Common/easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('#cc').calendar({
+					current: new Date(),
+		            formatter: function (date) {
+		                return "<br/>" + date.getDate()+'<div style="margin-left:35px; width:80px;">点击查看日程<b style="color:red;" id="number"></b></div>';
+
+		            },
+					onSelect: function(date){
+			            var month = date.getMonth()+1;
+			            if(month < 10){
+							month = "0"+month;
+				        }
+						var title = date.getFullYear()+"-"+month+"-"+date.getDate();
+						addTabs(title,"scheduleList.php?date="+title);
+					}
+				});
+			});
+    		function addTabs(title,url){
+    			var tab = $('#mytab').tabs('exists',title);
+        		if(tab){
+    				$("#mytab").tabs("select", title);
+    				tab = $("#mytab").tabs("getTab", title),
+    				$('#mytab').tabs('update', {
+    					tab: tab,
+    					options: {}
+    				});
+    			}else{
+            		$('#mytab').tabs('add',{
+            		    title:title,
+            		    selected: true,  
+            		    closable:true,
+            		    content:'<iframe style = "border:0;" src = "'+url+'" width = "99%" height = "99%"></iframe>'
+            		});	
+        		}	
+            }
+		</script>
+	</head>
+	<body class="easyui-layout">   
+        <div data-options="region:'north',split:true" style="height:50px;">
+        	<div style="color:gold;width:420px;text-algin:center;margin-left:-210px;font-size: 20px;position:absolute;left:50%;">
+        		<b>重庆市×××房地产销售公司客户关系管理系统</b>
+        	</div>
+			<?php 
+			     if(isset($_SESSION["loginUser"])){
+			         echo "<span style ='font-size:15px;'>欢迎您：<b style = 'color:red'>".$_SESSION["loginUser"]."</b></span>";
+			         echo "<a href = 'http://localhost:8080/tp/login.php'>退出</a>";
+			     }
+			?>
+        </div>
+        <div data-options="region:'west',title:'菜单',split:true" style="width:200px;">
+			<ul animate="true" class="easyui-tree">
+				<volist name="Think.session.menus" id="m1">
+					<if condition="$m1.mlevel eq 1">
+						<li>
+							<span>{$m1.mname}</span>
+							<ul>
+								<assign name = "mid" value="$m1.mid"/>
+								<volist  name="Think.session.menus" id="m2">
+									<if condition = "$m2.mlevel eq 2 and $m2.mparentid eq $mid">
+										<li><a href='javascript:addTabs("{$m2.mname}","<?php echo URLROOT?>/{$m2.murl}");'>{$m2.mname}</a></li>
+									</if>
+								</volist>
+							</ul>
+						</li>
+					</if>
+				</volist>
+			</ul>
+        </div>   
+        <div data-options="region:'center'" style="background:#eee;">
+        	<div id="mytab" class="easyui-tabs" data-options = "fit:true">   
+                <div title="欢迎您" data-options="closable:true"> 
+                	<div id="cc" class="easyui-calendar" data-options = "fit:true"></div> 
+                </div>
+            </div>  
+        </div>   
+    </body> 
+</html>

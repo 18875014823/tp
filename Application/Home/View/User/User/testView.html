@@ -1,0 +1,52 @@
+<?php 
+    define("URLROOT", "http://localhost:8080/tp");
+    session_start();
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>文件上传</title>
+	<script type="text/javascript" src="<?php echo URLROOT?>/Application/Common/jQuery/jquery-1.9.1.min.js"></script>
+	<link rel="stylesheet" href="<?php echo URLROOT?>/Application/Common/dist/css/bootstrap.min.css" type="text/css"/>
+	<script type="text/javascript" src="<?php echo URLROOT?>/Application/Common/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#picture").change(function(){
+				var formData = new FormData($('form')[0]);
+				$.ajax({
+		            url: '<?php echo URLROOT?>/index.php/Home/User/User/testUpload2',  //server script to process data
+		            type: 'POST',
+		            xhr: function() {  // custom xhr
+		                myXhr = $.ajaxSettings.xhr();
+		                if(myXhr.upload){ // check if upload property exists
+		                    myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // for handling the progress of the upload
+		                }
+		                return myXhr;
+		            },
+		            //Ajax事件
+		            beforeSend: beforeSendHandler,
+		            success: completeHandler,
+		            error: errorHandler,
+		            // Form数据
+		            data: formData,
+		            //Options to tell JQuery not to process data or worry about content-type
+		            cache: false,
+		            contentType: false,
+		            processData: false
+		        });
+		    });
+		});
+	</script>
+	</head>
+	<body>
+		<!-- <form action="<?php echo URLROOT?>/index.php/Home/User/User/testUpload" enctype="multipart/form-data"
+		  method="post">
+			<input type="file" name = "picture">
+			<input type="submit" value="确认"/>
+		</form> -->
+		<form method="post" enctype="multipart/form-data">
+			<input type="file" id="picture" name = "picture"/>
+		</form>
+	</body>
+</html>

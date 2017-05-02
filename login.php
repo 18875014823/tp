@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>用户登录</title>
+		<title>用户登录</title>  
 		<meta charset="utf-8">
 		<link type="text/css" rel="stylesheet" href="Application/Common/dist/css/bootstrap.min.css">
 		<script type="text/javascript" src="Application/Common/jQuery/jquery-1.9.1.min.js"></script>
